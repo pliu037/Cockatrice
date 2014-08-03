@@ -226,12 +226,8 @@ void PictureLoader::picDownloadFinished(QNetworkReply *reply)
         if (!cardBeingDownloaded.getStripped())
             suffix = ".full";
 
-        /*QFile newPic(picsPath + "/downloadedPics/" + cardBeingDownloaded.getSetName() + "/" + cardBeingDownloaded.getCard()->getCorrectedName() + suffix + ".jpg");
-        if (!newPic.open(QIODevice::WriteOnly))
-            return;
-        newPic.write(picData);
-        newPic.close();*/
-        testImage.save(picsPath + "/downloadedPics/" + cardBeingDownloaded.getSetName() + "/" + cardBeingDownloaded.getCard()->getCorrectedName() + suffix + ".jpg");
+        if (!testImage.save(picsPath + "/downloadedPics/" + cardBeingDownloaded.getSetName() + "/" + cardBeingDownloaded.getCard()->getCorrectedName() + suffix + ".jpg"))
+            qDebug(picsPath.toUtf8() + "/downloadedPics/" + cardBeingDownloaded.getSetName().toUtf8() + "/" + cardBeingDownloaded.getCard()->getCorrectedName().toUtf8() + suffix.toUtf8() + ".jpg was not successfully saved.");
 
         emit imageLoaded(cardBeingDownloaded.getCard(), testImage);
     } else if (cardBeingDownloaded.getHq()) {
